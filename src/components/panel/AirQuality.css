@@ -1,0 +1,146 @@
+/* OpenWeatherMap air quality index levels: background and text per level,
+   each pair keeps a contrast ratio above 4.5:1 */
+:root {
+  --aqi-1-bg: #bbf7d0;
+  --aqi-1-text: #14532d;
+  --aqi-2-bg: #d9f99d;
+  --aqi-2-text: #365314;
+  --aqi-3-bg: #fde68a;
+  --aqi-3-text: #78350f;
+  --aqi-4-bg: #fed7aa;
+  --aqi-4-text: #7c2d12;
+  --aqi-5-bg: #fecaca;
+  --aqi-5-text: #7f1d1d;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --aqi-1-bg: #14532d;
+    --aqi-1-text: #bbf7d0;
+    --aqi-2-bg: #365314;
+    --aqi-2-text: #d9f99d;
+    --aqi-3-bg: #78350f;
+    --aqi-3-text: #fde68a;
+    --aqi-4-bg: #7c2d12;
+    --aqi-4-text: #fed7aa;
+    --aqi-5-bg: #7f1d1d;
+    --aqi-5-text: #fecaca;
+  }
+}
+
+.air-quality {
+  .aqi-summary {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+  }
+
+  .aqi-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 4px 14px 4px 4px;
+    font-weight: 600;
+    color: var(--aqi-text);
+    background: var(--aqi-bg);
+    border-radius: 999px;
+  }
+
+  .aqi-value {
+    display: inline-grid;
+    place-items: center;
+    min-width: 2rem;
+    height: 2rem;
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--aqi-bg);
+    background: var(--aqi-text);
+    border-radius: 50%;
+  }
+
+  .aqi-badge--1 {
+    --aqi-bg: var(--aqi-1-bg);
+    --aqi-text: var(--aqi-1-text);
+  }
+  .aqi-badge--2 {
+    --aqi-bg: var(--aqi-2-bg);
+    --aqi-text: var(--aqi-2-text);
+  }
+  .aqi-badge--3 {
+    --aqi-bg: var(--aqi-3-bg);
+    --aqi-text: var(--aqi-3-text);
+  }
+  .aqi-badge--4 {
+    --aqi-bg: var(--aqi-4-bg);
+    --aqi-text: var(--aqi-4-text);
+  }
+  .aqi-badge--5 {
+    --aqi-bg: var(--aqi-5-bg);
+    --aqi-text: var(--aqi-5-text);
+  }
+
+  .aqi-scale {
+    display: flex;
+    gap: 3px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .aqi-step {
+    width: 22px;
+    height: 6px;
+    background: var(--aqi-bg);
+    border-radius: 999px;
+    opacity: 0.55;
+
+    &.is-current {
+      height: 10px;
+      background: var(--aqi-text);
+      opacity: 1;
+    }
+  }
+
+  .aqi-advice {
+    margin-top: 10px;
+  }
+
+  .aqi-pollutants {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+    margin: 14px 0 0;
+
+    div {
+      padding: 10px 12px;
+      background: var(--tile);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-sm);
+    }
+
+    dt {
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--text-muted);
+    }
+
+    dd {
+      margin: 2px 0 0;
+      font-size: 1.05rem;
+      font-weight: 600;
+      font-variant-numeric: tabular-nums;
+      color: var(--text-h);
+      overflow-wrap: anywhere;
+    }
+  }
+
+  .aqi-note {
+    margin-top: 12px;
+    font-size: 0.78rem;
+    color: var(--text-muted);
+  }
+}

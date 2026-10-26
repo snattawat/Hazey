@@ -1,0 +1,71 @@
+/* Warning banner colours: background, border and text keep a contrast
+   ratio above 4.5:1 in both themes */
+:root {
+  --warning-rain-bg: #fffbeb;
+  --warning-rain-border: #d97706;
+  --warning-rain-text: #78350f;
+  --warning-storm-bg: #fef2f2;
+  --warning-storm-border: #dc2626;
+  --warning-storm-text: #7f1d1d;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --warning-rain-bg: #422006;
+    --warning-rain-border: #f59e0b;
+    --warning-rain-text: #fde68a;
+    --warning-storm-bg: #450a0a;
+    --warning-storm-border: #ef4444;
+    --warning-storm-text: #fecaca;
+  }
+}
+
+.weather-alert {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 12px;
+  padding: 12px 14px;
+  text-align: left;
+  color: var(--alert-text);
+  background: var(--alert-bg);
+  border: 1px solid color-mix(in srgb, var(--alert-border) 45%, transparent);
+  border-radius: var(--radius);
+  overflow-wrap: anywhere;
+
+  .weather-alert-icon {
+    width: 28px;
+    height: 28px;
+    padding: 5px;
+    color: var(--alert-bg);
+    fill: currentColor;
+    background: var(--alert-border);
+    border-radius: 50%;
+  }
+
+  .weather-alert-title {
+    display: block;
+    font-size: 0.95rem;
+  }
+
+  .weather-alert-message {
+    margin-top: 2px;
+  }
+
+  .weather-alert-note {
+    margin-top: 6px;
+    font-size: 0.78rem;
+    opacity: 0.85;
+  }
+}
+
+.weather-alert--heavy-rain {
+  --alert-bg: var(--warning-rain-bg);
+  --alert-border: var(--warning-rain-border);
+  --alert-text: var(--warning-rain-text);
+}
+
+.weather-alert--thunderstorm {
+  --alert-bg: var(--warning-storm-bg);
+  --alert-border: var(--warning-storm-border);
+  --alert-text: var(--warning-storm-text);
+}

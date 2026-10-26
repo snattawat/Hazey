@@ -1,0 +1,346 @@
+/* The map fills its parent; App positions .weather-map-root full-screen. */
+.weather-map-root {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.weather-map {
+  width: 100%;
+  height: 100%;
+  /* Keep Leaflet's internal z-indexes from leaking over the floating UI. */
+  isolation: isolate;
+  background: var(--surface-muted);
+}
+
+/* --- City markers (L.divIcon) --- */
+/* The divIcon wrapper has no box of its own; the pill positions itself so its
+   bottom-centre sits on the coordinate. */
+.city-marker-wrap {
+  background: transparent;
+  border: none;
+}
+
+.city-marker {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  transform: translate(-50%, -8px);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px 4px 6px;
+  white-space: nowrap;
+  color: var(--text-h);
+  background: var(--glass-strong);
+  border: 1px solid var(--glass-border);
+  border-radius: 999px;
+  box-shadow: var(--shadow-sm);
+  -webkit-backdrop-filter: var(--blur);
+  backdrop-filter: var(--blur);
+  cursor: pointer;
+  /* A little pointer tail under the pill. */
+}
+
+.city-marker::after {
+  content: '';
+  position: absolute;
+  bottom: -5px;
+  left: 50%;
+  width: 10px;
+  height: 10px;
+  transform: translateX(-50%) rotate(45deg);
+  background: inherit;
+  border-right: 1px solid var(--glass-border);
+  border-bottom: 1px solid var(--glass-border);
+}
+
+.city-marker__icon {
+  width: 28px;
+  height: 28px;
+  margin: -4px 0;
+}
+
+.city-marker__temp {
+  font-weight: 700;
+  font-size: 0.95rem;
+}
+
+.city-marker__temp--placeholder {
+  color: var(--text-muted);
+  opacity: 0.7;
+}
+
+.city-marker__name {
+  font-size: 0.85rem;
+  color: var(--text);
+}
+
+.city-marker--loading {
+  color: var(--text-muted);
+}
+
+/* Selected: larger, accent coloured, lifted above the other pin. */
+.city-marker--selected {
+  padding: 6px 14px 6px 8px;
+  color: var(--accent-text);
+  background: var(--accent);
+  border-color: var(--accent);
+}
+
+.city-marker--selected::after {
+  background: var(--accent);
+  border-color: var(--accent);
+}
+
+.city-marker--selected .city-marker__name,
+.city-marker--selected .city-marker__temp {
+  color: var(--accent-text);
+}
+
+.city-marker--selected .city-marker__temp {
+  font-size: 1.05rem;
+}
+
+/* Soft pulsing ring behind the selected pill. */
+.city-marker__ring {
+  position: absolute;
+  inset: -6px;
+  border-radius: 999px;
+  border: 2px solid var(--accent);
+  opacity: 0.6;
+  animation: city-marker-pulse 2s ease-out infinite;
+  pointer-events: none;
+}
+
+@keyframes city-marker-pulse {
+  0% {
+    transform: scale(0.95);
+    opacity: 0.6;
+  }
+  70% {
+    transform: scale(1.3);
+    opacity: 0;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .city-marker__ring {
+    animation: none;
+  }
+}
+
+/* --- Map tools --- */
+.map-tools {
+  position: absolute;
+  top: calc(var(--overlay-top, 0px) + 16px);
+  right: 16px;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 6px;
+  border-radius: var(--radius);
+}
+
+.map-tool {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  color: var(--text-h);
+  background: transparent;
+  border: none;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+}
+
+.map-tool:hover:not(:disabled) {
+  background: var(--accent-soft);
+  color: var(--accent);
+}
+
+.map-tool:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.map-tool:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* --- Layers panel --- */
+.layers-panel {
+  position: absolute;
+  top: calc(var(--overlay-top, 0px) + 16px);
+  /* Sits just left of the 44px-wide tools + their padding and gap. */
+  right: 74px;
+  z-index: 1100;
+  width: 240px;
+  max-width: calc(100vw - 90px);
+  padding: 16px;
+  border-radius: var(--radius);
+  color: var(--text);
+}
+
+.layers-panel__title {
+  margin: 0 0 10px;
+  font-size: 1rem;
+}
+
+.layers-panel__group {
+  margin: 0 0 14px;
+  padding: 0;
+  border: none;
+}
+
+.layers-panel__group:last-child {
+  margin-bottom: 0;
+}
+
+.layers-panel__group legend {
+  padding: 0;
+  margin-bottom: 6px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--text-muted);
+}
+
+.layers-panel__group[disabled] {
+  opacity: 0.7;
+}
+
+.layers-panel__option {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 0;
+  font-size: 0.92rem;
+  color: var(--text-h);
+  cursor: pointer;
+}
+
+.layers-panel__option input:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.layers-panel__swatch {
+  width: 20px;
+  height: 20px;
+  border-radius: 6px;
+  border: 1px solid var(--glass-border);
+}
+
+.layers-panel__swatch--light {
+  background: linear-gradient(135deg, #f8fafc, #cbd5e1);
+}
+
+.layers-panel__swatch--dark {
+  background: linear-gradient(135deg, #334155, #0f172a);
+}
+
+/* Streets: a pale road-map look (cream to soft green). */
+.layers-panel__swatch--streets {
+  background: linear-gradient(135deg, #fdf6e3, #cfe8c8);
+}
+
+.layers-panel__swatch--satellite {
+  background: linear-gradient(135deg, #3f6212, #1e3a8a);
+}
+
+.layers-panel__hint {
+  margin: 6px 0 0;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+.layers-panel input[type='range'] {
+  width: 100%;
+  margin-top: 6px;
+  accent-color: var(--accent);
+}
+
+/* --- Legend --- */
+/* Lives inside Leaflet's bottom-right control corner (portaled there), so
+   Leaflet stacks it above the scale bar and attribution with no overlap. The
+   corner already carries margin-bottom: var(--overlay-bottom). */
+.map-legend {
+  width: 200px;
+  max-width: calc(100vw - 32px);
+  margin-bottom: 6px;
+  padding: 10px 12px;
+  border-radius: var(--radius-sm);
+  color: var(--text);
+}
+
+.map-legend__name {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-h);
+}
+
+.map-legend__bar-backing {
+  /* A light-to-dark checker-ish neutral so low-alpha stops still read. */
+  background:
+    linear-gradient(45deg, rgba(120, 120, 120, 0.25) 25%, transparent 25%),
+    linear-gradient(-45deg, rgba(120, 120, 120, 0.25) 25%, transparent 25%),
+    var(--surface-muted);
+  background-size: 8px 8px;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.map-legend__bar {
+  height: 10px;
+}
+
+.map-legend__labels {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 4px;
+  font-size: 0.72rem;
+  color: var(--text-muted);
+}
+
+/* --- Leaflet attribution + scale, bottom-right, lifted over the sheet --- */
+.weather-map .leaflet-bottom.leaflet-right {
+  margin-bottom: var(--overlay-bottom, 0px);
+}
+
+.weather-map .leaflet-control-attribution {
+  padding: 2px 8px;
+  font-size: 0.68rem;
+  color: var(--text-muted);
+  background: var(--glass);
+  border-radius: var(--radius-sm) 0 0 0;
+  -webkit-backdrop-filter: var(--blur);
+  backdrop-filter: var(--blur);
+}
+
+.weather-map .leaflet-control-attribution a {
+  color: var(--accent);
+}
+
+.weather-map .leaflet-control-scale {
+  margin: 0 8px 6px 0;
+}
+
+.weather-map .leaflet-control-scale-line {
+  padding: 1px 6px;
+  font-size: 0.7rem;
+  color: var(--text-h);
+  background: var(--glass);
+  border-color: var(--glass-border);
+  -webkit-backdrop-filter: var(--blur);
+  backdrop-filter: var(--blur);
+}

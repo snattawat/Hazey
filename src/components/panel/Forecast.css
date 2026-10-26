@@ -1,0 +1,156 @@
+/* Rain chance, shared by the hourly strip and the 5-day outlook */
+.hourly-forecast,
+.daily-outlook {
+  .pop {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+    color: var(--rain);
+
+    svg {
+      width: 10px;
+      height: 10px;
+      fill: currentColor;
+    }
+  }
+}
+
+.hourly-forecast {
+  ol {
+    display: flex;
+    gap: 6px;
+    margin: 0 -4px;
+    padding: 0 4px 6px;
+    list-style: none;
+    overflow-x: auto;
+    scroll-snap-type: x proximity;
+    scrollbar-width: thin;
+  }
+
+  li {
+    display: flex;
+    flex: 1 0 58px;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+    padding: 10px 4px 8px;
+    text-align: center;
+    background: var(--tile);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-sm);
+    scroll-snap-align: start;
+  }
+
+  .hour {
+    font-size: 0.78rem;
+    font-weight: 500;
+    color: var(--text-muted);
+    white-space: nowrap;
+  }
+
+  img {
+    width: 44px;
+    height: 44px;
+    margin: -4px 0;
+  }
+
+  .temp {
+    font-weight: 650;
+    font-variant-numeric: tabular-nums;
+    color: var(--text-h);
+  }
+
+  /* Keeps every item the same height, with or without a rain chance */
+  .pop {
+    min-height: 1.2em;
+  }
+}
+
+.daily-outlook {
+  ul {
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  li {
+    display: grid;
+    grid-template-columns: 3.1rem 40px 2.6rem 2.4rem minmax(48px, 1fr) 2.4rem;
+    align-items: center;
+    gap: 8px;
+    padding: 4px 0;
+    border-top: 1px solid var(--glass-border);
+
+    &:first-child {
+      border-top: none;
+    }
+  }
+
+  /* Fixed columns, so rows line up even when the icon or rain chance is missing */
+  .day {
+    grid-column: 1;
+    font-weight: 600;
+    color: var(--text-h);
+  }
+  img {
+    grid-column: 2;
+    width: 40px;
+    height: 40px;
+  }
+  .pop {
+    grid-column: 3;
+  }
+  .min {
+    grid-column: 4;
+    text-align: right;
+    color: var(--text-muted);
+  }
+  .range-bar {
+    grid-column: 5;
+  }
+  .max {
+    grid-column: 6;
+    color: var(--text-h);
+  }
+
+  .min,
+  .max {
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+  }
+
+  /* The whole track is the 5-day range; the fill is this day's part of it.
+     The gradient spans the track, so a warm day is a warmer colour. */
+  .range-bar {
+    position: relative;
+    height: 6px;
+    background: var(--tile-strong);
+    border-radius: 999px;
+  }
+
+  .range-fill {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, #38bdf8, #a3e635 40%, #facc15 65%, #f97316);
+    border-radius: inherit;
+    clip-path: inset(0 var(--to, 0%) 0 var(--from, 0%) round 999px);
+  }
+
+  .range-now {
+    position: absolute;
+    top: 50%;
+    width: 10px;
+    height: 10px;
+    background: var(--surface);
+    border: 2px solid var(--text-h);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+  }
+}

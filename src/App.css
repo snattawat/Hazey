@@ -1,0 +1,91 @@
+/* The map fills the window; the top bar and the city panel float over it.
+   App.tsx sets --overlay-top, --overlay-bottom and --sheet-height. */
+.app {
+  position: relative;
+  height: 100%;
+  overflow: hidden;
+}
+
+.app-map {
+  position: absolute;
+  inset: 0;
+  /* Keep Leaflet's internal z-indexes from stacking over the floating UI */
+  isolation: isolate;
+}
+
+/* Lets the map take clicks everywhere except on the cards themselves */
+.app-overlay {
+  position: absolute;
+  z-index: 1;
+  pointer-events: none;
+
+  > * {
+    pointer-events: auto;
+  }
+}
+
+/* Desktop: a 400px column on the left, the panel filling the rest of it */
+.app--desktop .app-overlay {
+  top: 16px;
+  bottom: 16px;
+  left: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 400px;
+
+  .top-bar {
+    flex: none;
+  }
+
+  .city-panel {
+    flex: 1 1 auto;
+  }
+}
+
+/* Phone: the bar across the top, the panel as a bottom sheet */
+.app--phone .app-overlay {
+  inset: 0;
+
+  .top-bar {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    left: 12px;
+  }
+
+  .city-panel {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    max-width: 640px;
+    height: var(--sheet-height);
+    margin-inline: auto;
+    transition: height 0.32s cubic-bezier(0.32, 0.72, 0, 1);
+  }
+}
+
+/* The expanded sheet covers most of the map, and the map tools, the layers
+   popover and the legend (all from WeatherMap) would poke out above its top
+   edge. They fade away until the sheet is collapsed again. The transition
+   is on every phone layout so they fade back in too. */
+.app--phone :is(.map-tools, .layers-panel, .map-legend) {
+  transition:
+    opacity 0.2s ease,
+    visibility 0.2s;
+}
+
+.app--sheet-expanded :is(.map-tools, .layers-panel, .map-legend) {
+  opacity: 0;
+  /* Also takes them out of the tab order and the accessibility tree */
+  visibility: hidden;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .app--phone .app-overlay .city-panel,
+  .app--phone :is(.map-tools, .layers-panel, .map-legend) {
+    transition: none;
+  }
+}

@@ -1,0 +1,113 @@
+/* Design tokens shared by the app chrome, the side panel and the map tools.
+   Everything floats over a full-screen map, so surfaces are translucent
+   "glass" cards. */
+:root {
+  --bg: #e8eef6;
+  --surface: #ffffff;
+  --surface-muted: #f1f5f9;
+  --glass: rgba(255, 255, 255, 0.82);
+  --glass-strong: rgba(255, 255, 255, 0.94);
+  --glass-border: rgba(15, 23, 42, 0.08);
+  --blur: saturate(160%) blur(14px);
+  --text: #475569;
+  --text-h: #0f172a;
+  --text-muted: #64748b;
+  --border: #e2e8f0;
+  --accent: #2563eb;
+  --accent-soft: rgba(37, 99, 235, 0.12);
+  --accent-text: #ffffff;
+  --rain: #0284c7;
+  --error: #b91c1c;
+  --error-bg: #fef2f2;
+  --shadow:
+    0 12px 32px -8px rgba(15, 23, 42, 0.22),
+    0 4px 10px -4px rgba(15, 23, 42, 0.12);
+  --shadow-sm: 0 2px 8px -2px rgba(15, 23, 42, 0.18);
+  --radius-lg: 20px;
+  --radius: 14px;
+  --radius-sm: 10px;
+  --gap: 16px;
+
+  font: 16px/1.5 system-ui, 'Segoe UI', Roboto, sans-serif;
+  color-scheme: light dark;
+  color: var(--text);
+  background: var(--bg);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #0b1220;
+    --surface: #1e293b;
+    --surface-muted: #0f172a;
+    --glass: rgba(15, 23, 42, 0.78);
+    --glass-strong: rgba(15, 23, 42, 0.92);
+    --glass-border: rgba(148, 163, 184, 0.16);
+    --text: #cbd5e1;
+    --text-h: #f8fafc;
+    --text-muted: #94a3b8;
+    --border: #334155;
+    --accent: #60a5fa;
+    --accent-soft: rgba(96, 165, 250, 0.16);
+    --accent-text: #0b1220;
+    --rain: #38bdf8;
+    --error: #fca5a5;
+    --error-bg: rgba(239, 68, 68, 0.14);
+    --shadow:
+      0 12px 32px -8px rgba(0, 0, 0, 0.6),
+      0 4px 10px -4px rgba(0, 0, 0, 0.4);
+    --shadow-sm: 0 2px 8px -2px rgba(0, 0, 0, 0.5);
+  }
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  overflow: hidden;
+  background: var(--bg);
+}
+
+h1,
+h2,
+h3 {
+  margin: 0;
+  color: var(--text-h);
+}
+
+p {
+  margin: 0;
+}
+
+/* A floating card over the map */
+.glass {
+  background: var(--glass);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow);
+  -webkit-backdrop-filter: var(--blur);
+  backdrop-filter: var(--blur);
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
