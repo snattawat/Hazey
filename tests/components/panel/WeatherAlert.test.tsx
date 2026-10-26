@@ -1,8 +1,8 @@
 import { render, screen } from '@testing-library/react'
 import { describe, expect, it } from 'vitest'
-import { forecastEntry, londonForecast } from '../../test/fixtures'
-import type { ForecastData, ForecastEntry } from '../../api/types'
-import WeatherAlert from './WeatherAlert'
+import { forecastEntry, londonForecast } from '../../support/fixtures'
+import type { ForecastData, ForecastEntry } from '../../../src/api/types'
+import WeatherAlert from '../../../src/components/panel/WeatherAlert'
 
 // The dry London forecast with some steps (by index) replaced
 function forecastWith(

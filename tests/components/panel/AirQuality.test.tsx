@@ -1,9 +1,9 @@
 import { render, screen } from '@testing-library/react'
 import { describe, expect, it } from 'vitest'
-import { describeAqi } from '../../utils/airQuality'
-import { londonAir } from '../../test/fixtures'
-import type { AirQualityData } from '../../api/types'
-import AirQuality from './AirQuality'
+import { describeAqi } from '../../../src/utils/airQuality'
+import { londonAir } from '../../support/fixtures'
+import type { AirQualityData } from '../../../src/api/types'
+import AirQuality from '../../../src/components/panel/AirQuality'
 
 type Aqi = AirQualityData['list'][number]['main']['aqi']
 

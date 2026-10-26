@@ -2,9 +2,9 @@ import { fireEvent, render, screen, within } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import type { ComponentProps } from 'react'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
-import { MAP_LOCATIONS } from '../../data/locations'
-import type { WeatherData } from '../../api/types'
-import WeatherMap from './WeatherMap'
+import { MAP_LOCATIONS } from '../../../src/data/locations'
+import type { WeatherData } from '../../../src/api/types'
+import WeatherMap from '../../../src/components/map/WeatherMap'
 
 const [bangkok, singapore] = MAP_LOCATIONS
 

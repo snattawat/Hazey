@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react'
 import { describe, expect, it } from 'vitest'
-import { bangkok } from '../../test/fixtures'
-import WeatherCard from './WeatherCard'
+import { bangkok } from '../../support/fixtures'
+import WeatherCard from '../../../src/components/panel/WeatherCard'
 
 const range = { min: 27.9, max: 33.1 }
 

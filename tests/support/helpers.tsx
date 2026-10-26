@@ -1,6 +1,6 @@
 import { render } from '@testing-library/react'
 import { vi } from 'vitest'
-import type { AirQualityData, ForecastData, WeatherData } from '../api/types'
+import type { AirQualityData, ForecastData, WeatherData } from '../../src/api/types'
 import {
   bangkok,
   bangkokAir,
@@ -86,6 +86,6 @@ export function fakeApi(input: RequestInfo | URL): Promise<Response> {
 // again (after the env is stubbed) for every test.
 export async function renderApp() {
   vi.resetModules()
-  const { default: App } = await import('../App')
+  const { default: App } = await import('../../src/App')
   return render(<App />)
 }

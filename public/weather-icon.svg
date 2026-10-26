@@ -1,0 +1,38 @@
+<svg width="1024" height="1024" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Weather app icon">
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#4FA3FF"/>
+      <stop offset="1" stop-color="#1D4ED8"/>
+    </linearGradient>
+    <radialGradient id="sunFill" cx="0.4" cy="0.35" r="0.75">
+      <stop offset="0" stop-color="#FFE38A"/>
+      <stop offset="1" stop-color="#FFB020"/>
+    </radialGradient>
+    <linearGradient id="cloudFill" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#FFFFFF"/>
+      <stop offset="1" stop-color="#DCE6F5"/>
+    </linearGradient>
+  </defs>
+  <rect width="1024" height="1024" rx="230" fill="url(#sky)"/>
+  <g stroke="#FFB020" stroke-width="34" stroke-linecap="round">
+    <line x1="660" y1="128" x2="660" y2="168"/>
+    <line x1="864" y1="380" x2="904" y2="380"/>
+    <line x1="804" y1="236" x2="832" y2="208"/>
+    <line x1="516" y1="236" x2="488" y2="208"/>
+    <line x1="804" y1="524" x2="832" y2="552"/>
+  </g>
+  <circle cx="660" cy="380" r="200" fill="#FFB020" opacity="0.22"/>
+  <circle cx="660" cy="380" r="160" fill="url(#sunFill)"/>
+  <g fill="#0B1E4A" opacity="0.22">
+    <rect x="206" y="604" width="620" height="208" rx="104"/>
+    <circle cx="410" cy="604" r="150"/>
+    <circle cx="610" cy="574" r="178"/>
+    <circle cx="316" cy="664" r="110"/>
+  </g>
+  <g fill="url(#cloudFill)">
+    <rect x="196" y="580" width="620" height="208" rx="104"/>
+    <circle cx="400" cy="580" r="150"/>
+    <circle cx="600" cy="550" r="178"/>
+    <circle cx="306" cy="640" r="110"/>
+  </g>
+</svg>

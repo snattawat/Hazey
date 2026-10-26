@@ -1,8 +1,8 @@
 import { render, screen } from '@testing-library/react'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
-import { FORECAST_START, forecastEntry, londonForecast } from '../../test/fixtures'
-import type { ForecastData } from '../../api/types'
-import DailyOutlook from './DailyOutlook'
+import { FORECAST_START, forecastEntry, londonForecast } from '../../support/fixtures'
+import type { ForecastData } from '../../../src/api/types'
+import DailyOutlook from '../../../src/components/panel/DailyOutlook'
 
 // Two London days: the 21st between 20° and 30°, the 22nd between 25° and 35°
 const twoDays: ForecastData = {

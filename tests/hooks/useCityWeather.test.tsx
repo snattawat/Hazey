@@ -1,6 +1,6 @@
 import { act, renderHook, waitFor } from '@testing-library/react'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
-import { fetchAirQuality, fetchCurrentWeather, fetchForecast } from '../api/openWeatherMap'
+import { fetchAirQuality, fetchCurrentWeather, fetchForecast } from '../../src/api/openWeatherMap'
 import {
   bangkok,
   bangkokAir,
@@ -8,11 +8,11 @@ import {
   singapore,
   singaporeAir,
   singaporeForecast,
-} from '../test/fixtures'
-import type { WeatherData } from '../api/types'
-import useCityWeather, { REFRESH_INTERVAL_MS } from './useCityWeather'
+} from '../support/fixtures'
+import type { WeatherData } from '../../src/api/types'
+import useCityWeather, { REFRESH_INTERVAL_MS } from '../../src/hooks/useCityWeather'
 
-vi.mock('../api/openWeatherMap', () => ({
+vi.mock('../../src/api/openWeatherMap', () => ({
   fetchCurrentWeather: vi.fn(),
   fetchForecast: vi.fn(),
   fetchAirQuality: vi.fn(),

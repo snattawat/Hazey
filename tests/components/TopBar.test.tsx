@@ -2,8 +2,8 @@ import { render, screen, within } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import type { ComponentProps } from 'react'
 import { describe, expect, it, vi } from 'vitest'
-import { MAP_LOCATIONS } from '../data/locations'
-import TopBar from './TopBar'
+import { MAP_LOCATIONS } from '../../src/data/locations'
+import TopBar from '../../src/components/TopBar'
 
 const [bangkok, singapore] = MAP_LOCATIONS
 

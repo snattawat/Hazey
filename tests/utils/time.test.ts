@@ -4,14 +4,14 @@ import {
   OBSERVED_AT,
   SINGAPORE_TZ,
   bangkok,
-} from '../test/fixtures'
+} from '../support/fixtures'
 import {
   formatClock,
   formatHour,
   formatLongDate,
   formatTimeOfDay,
   formatUpdated,
-} from './time'
+} from '../../src/utils/time'
 
 const MINUTE = 60_000
 

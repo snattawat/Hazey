@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { describeAqi } from './airQuality'
+import { describeAqi } from '../../src/utils/airQuality'
 
 describe('describeAqi', () => {
   it.each([

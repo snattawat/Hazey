@@ -438,48 +438,53 @@ my-weather-app/
 ├── dist/                 the packed app made by `npm run build` (don't edit)
 ├── node_modules/         downloaded libraries (don't edit; npm manages it)
 │
-└── src/                  ⭐ all the code you write lives here
-    ├── main.tsx          ② the starting point
-    ├── App.tsx           ③ the boss component
-    ├── App.css           layout of the whole screen
-    ├── index.css         colours and styles shared by everything
-    ├── vite-env.d.ts     tells TypeScript about VITE_API_KEY
-    │
-    ├── api/              ⑥⑦ talking to OpenWeatherMap
-    │   ├── openWeatherMap.ts   sends the questions, handles errors
-    │   └── types.ts            the shape of the answers
-    │
-    ├── hooks/            ⑤⑧ React logic you can reuse
-    │   └── useCityWeather.ts   loads both cities and refreshes every 10 min
-    │
-    ├── data/             facts that don't change
-    │   └── locations.ts        the two cities: names, time zones, positions
-    │
-    ├── utils/            ⑨ helpers: numbers in, nice text out
-    │   ├── units.ts            °C/°F, km/h/mph
-    │   ├── time.ts             clocks, days, "Updated 5 min ago"
-    │   ├── forecast.ts         40 steps → 5 days, today's high/low
-    │   ├── alerts.ts           storm and heavy rain warnings
-    │   └── airQuality.ts       air score words and advice
-    │
-    ├── components/       ⑩ the LEGO bricks that draw the screen
-    │   ├── TopBar.tsx          the bar at the top
-    │   ├── map/                everything on the map
-    │   └── panel/              everything in the glass side panel
-    │
-    └── test/             helpers shared by the tests
+├── src/                  ⭐ the code of the app itself
+│   ├── main.tsx          ② the starting point
+│   ├── App.tsx           ③ the boss component
+│   ├── App.css           layout of the whole screen
+│   ├── index.css         colours and styles shared by everything
+│   ├── vite-env.d.ts     tells TypeScript about VITE_API_KEY
+│   │
+│   ├── api/              ⑥⑦ talking to OpenWeatherMap
+│   │   ├── openWeatherMap.ts   sends the questions, handles errors
+│   │   └── types.ts            the shape of the answers
+│   │
+│   ├── hooks/            ⑤⑧ React logic you can reuse
+│   │   └── useCityWeather.ts   loads both cities and refreshes every 10 min
+│   │
+│   ├── data/             facts that don't change
+│   │   └── locations.ts        the two cities: names, time zones, positions
+│   │
+│   ├── utils/            ⑨ helpers: numbers in, nice text out
+│   │   ├── units.ts            °C/°F, km/h/mph
+│   │   ├── time.ts             clocks, days, "Updated 5 min ago"
+│   │   ├── forecast.ts         40 steps → 5 days, today's high/low
+│   │   ├── alerts.ts           storm and heavy rain warnings
+│   │   └── airQuality.ts       air score words and advice
+│   │
+│   └── components/       ⑩ the LEGO bricks that draw the screen
+│       ├── TopBar.tsx          the bar at the top
+│       ├── map/                everything on the map
+│       └── panel/              everything in the glass side panel
+│
+└── tests/                🤖 the tests, laid out the same way as src/
+    ├── App.test.tsx            checks src/App.tsx
+    ├── hooks/                  checks src/hooks/
+    ├── utils/                  checks src/utils/
+    ├── components/             checks src/components/ (map/ and panel/ too)
+    └── support/          helpers shared by the tests
         ├── setup.ts            runs before every test
         ├── fixtures.ts         pretend weather data
         └── helpers.tsx         a pretend OpenWeatherMap
 ```
 
-The folders inside `src/` follow the journey: `api/` fetches, `hooks/` organises, `utils/` translates, and `components/` draws.
+The folders inside `src/` follow the journey: `api/` fetches, `hooks/` organises, `utils/` translates, and `components/` draws. The `tests/` folder copies the same layout, so the test for `src/utils/time.ts` is at `tests/utils/time.test.ts`.
 
 ---
 
 ## 5. Tests: robots that check the code
 
-Next to many files there's a file with `.test` in its name, like `time.ts` and `time.test.ts`. Tests are little robots that use the code and check the answer is right. Here's one from `time.test.ts`:
+All the tests live in the `tests/` folder, separate from the app. Each test file has `.test` in its name and sits in the same place as the file it checks: `src/utils/time.ts` is checked by `tests/utils/time.test.ts`. Tests are little robots that use the code and check the answer is right. Here's one from `time.test.ts`:
 
 ```ts
 // 05:30 UTC
@@ -489,7 +494,7 @@ expect(formatHour(OBSERVED_AT, SINGAPORE_TZ)).toBe('1 PM')
 
 "At the same moment, expect Bangkok's clock to say 12 PM and Singapore's to say 1 PM." (Singapore is one hour ahead of Bangkok.) If someone breaks the time zone maths, this test turns red.
 
-The tests never use the real internet. `src/test/helpers.tsx` has a **pretend OpenWeatherMap** that always answers with the made-up weather in `src/test/fixtures.ts`. That way the tests are fast, work offline, and give the same result every time, even when it's actually raining.
+The tests never use the real internet. `tests/support/helpers.tsx` has a **pretend OpenWeatherMap** that always answers with the made-up weather in `tests/support/fixtures.ts`. That way the tests are fast, work offline, and give the same result every time, even when it's actually raining.
 
 ```bash
 npm test
@@ -560,6 +565,6 @@ Add Kuala Lumpur to `MAP_LOCATIONS` in `src/data/locations.ts`:
 
 A new button appears in the top bar, a new bubble lands on the map, and its weather loads by itself, because everything else reads from this one list. TypeScript is happy too, since the new city has every field `MapLocation` asks for.
 
-Then run `npm test`. About 10 tests turn red, in `src/App.test.tsx` and `src/hooks/useCityWeather.test.tsx`. They were written expecting exactly two cities, and the pretend OpenWeatherMap only knows Bangkok and Singapore. The robots are doing their job: they noticed the app changed! Can you teach them about Kuala Lumpur? Start with `src/test/fixtures.ts` and `src/test/helpers.tsx`.
+Then run `npm test`. About 10 tests turn red, in `tests/App.test.tsx` and `tests/hooks/useCityWeather.test.tsx`. They were written expecting exactly two cities, and the pretend OpenWeatherMap only knows Bangkok and Singapore. The robots are doing their job: they noticed the app changed! Can you teach them about Kuala Lumpur? Start with `tests/support/fixtures.ts` and `tests/support/helpers.tsx`.
 
 Have fun! 🚀

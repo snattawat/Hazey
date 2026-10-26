@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest'
-import { findWeatherAlert } from './alerts'
-import { forecastEntry, londonForecast } from '../test/fixtures'
-import type { ForecastData, ForecastEntry } from '../api/types'
+import { findWeatherAlert } from '../../src/utils/alerts'
+import { forecastEntry, londonForecast } from '../support/fixtures'
+import type { ForecastData, ForecastEntry } from '../../src/api/types'
 
 const thunderstorm = {
   id: 211,

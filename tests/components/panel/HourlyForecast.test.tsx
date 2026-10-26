@@ -1,8 +1,8 @@
 import { render, screen } from '@testing-library/react'
 import { describe, expect, it } from 'vitest'
-import { forecastEntry, londonForecast } from '../../test/fixtures'
-import type { ForecastData } from '../../api/types'
-import HourlyForecast from './HourlyForecast'
+import { forecastEntry, londonForecast } from '../../support/fixtures'
+import type { ForecastData } from '../../../src/api/types'
+import HourlyForecast from '../../../src/components/panel/HourlyForecast'
 
 describe('HourlyForecast', () => {
   it('is a "Next 24 hours" section', () => {

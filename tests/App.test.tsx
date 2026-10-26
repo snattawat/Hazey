@@ -2,12 +2,12 @@ import { act, screen, waitFor, within } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import type { MockInstance } from 'vitest'
-import type { WeatherMapProps } from './components/map/WeatherMap'
-import { describeRequest, fakeApi, jsonResponse, renderApp } from './test/helpers'
+import type { WeatherMapProps } from '../src/components/map/WeatherMap'
+import { describeRequest, fakeApi, jsonResponse, renderApp } from './support/helpers'
 
 // The real map needs Leaflet. This stand-in shows what App hands the map and
 // has a pin (button) per city, like clicking a marker.
-vi.mock('./components/map/WeatherMap', () => ({
+vi.mock('../src/components/map/WeatherMap', () => ({
   default: ({ cities, selectedId, units, padding, onSelect }: WeatherMapProps) => (
     <div
       data-testid="map"

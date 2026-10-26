@@ -2,7 +2,7 @@ import { act, render, screen, within } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import type { ComponentProps } from 'react'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
-import { MAP_LOCATIONS } from '../../data/locations'
+import { MAP_LOCATIONS } from '../../../src/data/locations'
 import {
   OBSERVED_AT,
   bangkok,
@@ -12,10 +12,10 @@ import {
   singapore,
   singaporeAir,
   singaporeForecast,
-} from '../../test/fixtures'
-import type { AirQualityData, ForecastData, WeatherData } from '../../api/types'
-import type { CityWeather } from '../../hooks/useCityWeather'
-import CityPanel from './CityPanel'
+} from '../../support/fixtures'
+import type { AirQualityData, ForecastData, WeatherData } from '../../../src/api/types'
+import type { CityWeather } from '../../../src/hooks/useCityWeather'
+import CityPanel from '../../../src/components/panel/CityPanel'
 
 const [bangkokPlace, singaporePlace] = MAP_LOCATIONS as [
   (typeof MAP_LOCATIONS)[number],

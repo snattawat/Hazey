@@ -1,13 +1,13 @@
 import { describe, expect, it } from 'vitest'
-import { summariseDays, todayRange } from './forecast'
+import { summariseDays, todayRange } from '../../src/utils/forecast'
 import {
   FORECAST_START,
   bangkok,
   bangkokForecast,
   forecastEntry,
   londonForecast,
-} from '../test/fixtures'
-import type { ForecastData } from '../api/types'
+} from '../support/fixtures'
+import type { ForecastData } from '../../src/api/types'
 
 describe('summariseDays', () => {
   it('groups the London forecast into 5 local days', () => {

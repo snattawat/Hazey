@@ -4,7 +4,7 @@ import type {
   ForecastEntry,
   WeatherCondition,
   WeatherData,
-} from '../api/types'
+} from '../../src/api/types'
 
 // Sample OpenWeatherMap responses for tests. No network or API key needed.
 
