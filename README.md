@@ -8,8 +8,7 @@ The whole thing is written in **TypeScript**. This guide walks through what happ
 
 ---
 
-## 1. Run it on your computer
-
+## Run
 You need [Node.js](https://nodejs.org) installed. Node lets your computer run JavaScript outside the browser, and it comes with `npm`, which downloads the libraries this project uses.
 
 **Step 1: download the libraries** (only the first time)
@@ -50,13 +49,13 @@ It prints an address like `http://localhost:5173`. Open it in your browser. When
 
 ---
 
-## 4. Where everything lives (the folders)
+## Folder Tree
 
 ```
 my-weather-app/
-├── index.html            ① the empty page the browser downloads first
+├── index.html            the empty page the browser downloads first
 ├── package.json          the project's ID card: name, commands, libraries
-├── .env                  🤫 your secret API key (you create this)
+├── .env                  Your secret API key (you create this)
 ├── .env.example          an example of what .env should look like
 ├── vite.config.ts        settings for Vite (runs the app) and Vitest (runs tests)
 ├── tsconfig*.json        settings for TypeScript (how strict to be)
@@ -65,36 +64,36 @@ my-weather-app/
 ├── dist/                 the packed app made by `npm run build` (don't edit)
 ├── node_modules/         downloaded libraries (don't edit; npm manages it)
 │
-├── src/                  ⭐ the code of the app itself
-│   ├── main.tsx          ② the starting point
-│   ├── App.tsx           ③ the boss component
+├── src/                  the code of the app itself
+│   ├── main.tsx          the starting point
+│   ├── App.tsx           the boss component
 │   ├── App.css           layout of the whole screen
 │   ├── index.css         colours and styles shared by everything
 │   ├── vite-env.d.ts     tells TypeScript about VITE_API_KEY
 │   │
-│   ├── api/              ⑥⑦ talking to OpenWeatherMap
+│   ├── api/              talking to OpenWeatherMap
 │   │   ├── openWeatherMap.ts   sends the questions, handles errors
 │   │   └── types.ts            the shape of the answers
 │   │
-│   ├── hooks/            ⑤⑧ React logic you can reuse
+│   ├── hooks/            React logic you can reuse
 │   │   └── useCityWeather.ts   loads both cities and refreshes every 10 min
 │   │
 │   ├── data/             facts that don't change
 │   │   └── locations.ts        the two cities: names, time zones, positions
 │   │
-│   ├── utils/            ⑨ helpers: numbers in, nice text out
+│   ├── utils/            helpers: numbers in, nice text out
 │   │   ├── units.ts            °C/°F, km/h/mph
 │   │   ├── time.ts             clocks, days, "Updated 5 min ago"
 │   │   ├── forecast.ts         40 steps → 5 days, today's high/low
 │   │   ├── alerts.ts           storm and heavy rain warnings
 │   │   └── airQuality.ts       air score words and advice
 │   │
-│   └── components/       ⑩ the LEGO bricks that draw the screen
+│   └── components/       the LEGO bricks that draw the screen
 │       ├── TopBar.tsx          the bar at the top
 │       ├── map/                everything on the map
 │       └── panel/              everything in the glass side panel
 │
-└── tests/                🤖 the tests, laid out the same way as src/
+└── tests/                the tests, laid out the same way as src/
     ├── App.test.tsx            checks src/App.tsx
     ├── hooks/                  checks src/hooks/
     ├── utils/                  checks src/utils/
